@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .bank-container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .balance-box {
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .deposit {
+      background: #4caf50;
+    }
+
+    .deposit:hover {
+      background: #45a049;
+    }
+
+    .withdraw {
+      background: #f44336;
+    }
+
+    .withdraw:hover {
+      background: #d32f2f;
+    }
+
+    @media (max-width: 500px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bank-container">
+    <h2>Banking App</h2>
+    <div class="balance-box">Balance: ₹<span id="balance">1000</span></div>
+
+    <div class="controls">
+      <input type="number" id="amount" placeholder="Enter amount" min="1">
+      <button class="deposit" onclick="deposit()">Deposit</button>
+      <button class="withdraw" onclick="withdraw()">Withdraw</button>
+    </div>
+  </div>
+
+  <script>
+    let balance = 1000;
+    const balanceEl = document.getElementById("balance");
+
+    function deposit() {
+      let amount = parseFloat(document.getElementById("amount").value);
+      if (amount > 0) {
+        balance += amount;
+        updateBalance();
+      } else {
+        alert("Enter a valid amount!");
+      }
+      document.getElementById("amount").value = "";
+    }
+
+    function withdraw() {
+      let amount = parseFloat(document.getElementById("amount").value);
+      if (amount > 0 && amount <= balance) {
+        balance -= amount;
+        updateBalance();
+      } else if (amount > balance) {
+        alert("Insufficient Balance!");
+      } else {
+        alert("Enter a valid amount!");
+      }
+      document.getElementById("amount").value = "";
+    }
+
+    function updateBalance() {
+      balanceEl.textContent = balance.toFixed(2);
+    }
+  </script>
+</body>
+</html>
